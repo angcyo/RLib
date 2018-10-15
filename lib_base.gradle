@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+
+def C_SDK = 28
+def M_SDK = 21
+def T_SDK = 28
+def V_CODE = 1
+def V_NAME = "1.0"
+
+android {
+    compileSdkVersion C_SDK
+
+    defaultConfig {
+        minSdkVersion M_SDK
+        targetSdkVersion T_SDK
+        versionCode V_CODE
+        versionName V_NAME
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+}
