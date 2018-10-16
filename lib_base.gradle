@@ -1,10 +1,44 @@
 apply plugin: 'com.android.library'
 
-def C_SDK = 28
-def M_SDK = 21
-def T_SDK = 28
+def C_SDK = 280
+def M_SDK = 210
+def T_SDK = 280
 def V_CODE = 1
 def V_NAME = "1.0"
+
+//println project.getName()
+//println project.getDisplayName()
+//println project.getChildProjects()
+//println rootProject.getDisplayName()
+//println rootProject.getChildProjects()
+//println 'all:'
+//println rootProject.allprojects
+//println 'sub:'
+//println rootProject.subprojects
+
+//classpath 'com.android.tools.build:gradle:3.2.1'
+//gradle-4.6-all.zip
+
+def childProjects = rootProject.getChildProjects()
+childProjects.each {
+    //println it.key
+    //println it.value
+    def application = "com.android.application"
+    def library = "com.android.library"
+
+    def projectObj = it.value
+    def isApp = projectObj.plugins.hasPlugin(application)
+    def isLib = projectObj.plugins.hasPlugin(library)
+
+    if (isApp) {
+        def applicationPlugin = projectObj.plugins.findPlugin(application)
+        //自动获取 主工程的 sdk配置信息
+        //println applicationPlugin.extension.defaultConfig.applicationId
+        M_SDK = applicationPlugin.extension.defaultConfig.minSdkVersion.apiLevel
+        T_SDK = applicationPlugin.extension.defaultConfig.targetSdkVersion.apiLevel
+        C_SDK = applicationPlugin.extension.compileSdkVersion
+    }
+}
 
 android {
     compileSdkVersion C_SDK
