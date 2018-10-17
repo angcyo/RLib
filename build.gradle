@@ -1,1 +1,6 @@
-apply from:'./lib_base.gradle'
+apply from: './lib_base.gradle'
+
+dependencies {
+    //https://github.com/tbruyelle/RxPermissions
+    api 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4'
+}
