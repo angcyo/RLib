@@ -1,8 +1,8 @@
 apply plugin: 'com.android.library'
 
-def C_SDK = 280
-def M_SDK = 210
-def T_SDK = 280
+def C_SDK = 28
+def M_SDK = 21
+def T_SDK = 28
 def V_CODE = 1
 def V_NAME = "1.0"
 
