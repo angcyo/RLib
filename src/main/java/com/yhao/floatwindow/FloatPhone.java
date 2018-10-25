@@ -30,7 +30,8 @@ class FloatPhone extends FloatView {
         mLayoutParams.format = PixelFormat.RGBA_8888;
         mLayoutParams.flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+                | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mLayoutParams.windowAnimations = 0;
     }
 
@@ -140,6 +141,13 @@ class FloatPhone extends FloatView {
     void updateY(int y) {
         if (isRemove) return;
         mLayoutParams.y = mY = y;
+        mWindowManager.updateViewLayout(mView, mLayoutParams);
+    }
+
+    @Override
+    public void updateFlags(int flags) {
+        if (isRemove) return;
+        mLayoutParams.flags = flags;
         mWindowManager.updateViewLayout(mView, mLayoutParams);
     }
 

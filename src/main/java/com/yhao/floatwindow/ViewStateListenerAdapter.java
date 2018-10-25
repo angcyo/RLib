@@ -6,6 +6,21 @@ package com.yhao.floatwindow;
  */
 public class ViewStateListenerAdapter implements ViewStateListener{
     @Override
+    public void onTouchDown(int x, int y) {
+
+    }
+
+    @Override
+    public void onTouchUp(int x, int y) {
+
+    }
+
+    @Override
+    public void onTouchMove(int x, int y) {
+
+    }
+
+    @Override
     public void onPositionUpdate(int x, int y) {
 
     }

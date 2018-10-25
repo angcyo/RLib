@@ -5,6 +5,12 @@ package com.yhao.floatwindow;
  * https://github.com/yhaolpz
  */
 public interface ViewStateListener {
+    void onTouchDown(int x, int y);
+
+    void onTouchUp(int x, int y);
+
+    void onTouchMove(int x, int y);
+
     void onPositionUpdate(int x, int y);
 
     void onShow();

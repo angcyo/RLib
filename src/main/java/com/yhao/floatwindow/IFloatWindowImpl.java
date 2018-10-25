@@ -174,6 +174,10 @@ public class IFloatWindowImpl extends IFloatWindow {
         return mB.mView;
     }
 
+    @Override
+    public FloatView getFloatView() {
+        return mFloatView;
+    }
 
     private void checkMoveType() {
         if (mB.mMoveType == MoveType.fixed) {
@@ -205,6 +209,9 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 lastX = event.getRawX();
                                 lastY = event.getRawY();
                                 cancelAnimator();
+                                if (mB.mViewStateListener != null) {
+                                    mB.mViewStateListener.onTouchDown(((int) downX), (int) downY);
+                                }
                                 break;
                             case MotionEvent.ACTION_MOVE:
                                 changeX = event.getRawX() - lastX;
@@ -222,6 +229,7 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 newY = (int) (mFloatView.getY() + changeY);
                                 mFloatView.updateXY(newX, newY);
                                 if (mB.mViewStateListener != null) {
+                                    mB.mViewStateListener.onTouchMove(((int) event.getRawX()), (int) event.getRawY());
                                     mB.mViewStateListener.onPositionUpdate(newX, newY);
                                 }
                                 lastX = event.getRawX();
@@ -231,6 +239,11 @@ public class IFloatWindowImpl extends IFloatWindow {
                                 upX = event.getRawX();
                                 upY = event.getRawY();
                                 mClick = (Math.abs(upX - downX) > mSlop) || (Math.abs(upY - downY) > mSlop);
+
+                                if (mB.mViewStateListener != null) {
+                                    mB.mViewStateListener.onTouchDown(((int) upX), (int) upY);
+                                }
+
                                 switch (mB.mMoveType) {
                                     case MoveType.slide:
                                         int startX = mFloatView.getX();

@@ -212,6 +212,9 @@ public class FloatWindow {
             return build(false);
         }
 
+        /**
+         * @param buildInActivity true 会立即调用 show方法
+         * */
         public View build(boolean buildInActivity) {
             if (mFloatWindowMap == null) {
                 mFloatWindowMap = new HashMap<>();
