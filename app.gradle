@@ -35,12 +35,13 @@ android {
 //            ]
 //        }
 //    }
+
     flavorDimensions "type"
     productFlavors {
         //develop
         _dev {
             dimension "type"
-            minSdkVersion 21
+            minSdkVersion Math.max(Integer.parseInt(rootProject.M_SDK), 21)
             buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
         //preview
