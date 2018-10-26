@@ -47,7 +47,7 @@ public class L {
     private static final int XML = 9;
     private static final int JSON_INDENT = 4;
     public static String TAG = "angcyo";
-    public static boolean LOG_DEBUG = true;
+    public static boolean LOG_DEBUG = BuildConfig.DEBUG;
     private static long lastLogETime = 0L;
     private static long lastLogITime = 0L;
 
