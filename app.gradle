@@ -10,16 +10,23 @@ def apkTime() {
 
 def apk_time = apkTime()
 
+def _C_SDK = hasProperty("C_SDK") ? ext.C_SDK : '28'
+def _M_SDK = hasProperty("M_SDK") ? ext.M_SDK : '21'
+def _T_SDK = hasProperty("T_SDK") ? ext.T_SDK : '28'
+def _V_CODE = hasProperty("V_CODE") ? ext.V_CODE : '1'
+def _V_NAME = hasProperty("V_NAME") ? ext.V_NAME : '1.0'
+def application_id = hasProperty("application_id") ? ext.application_id : 'com.angcyo.app'
+
 android {
 
-    compileSdkVersion Integer.parseInt(rootProject.C_SDK)
+    compileSdkVersion Integer.parseInt(_C_SDK)
     //buildToolsVersion rootProject.B_TOOLS
     defaultConfig {
         applicationId "$application_id"
-        minSdkVersion Integer.parseInt(rootProject.M_SDK)
-        targetSdkVersion Integer.parseInt(rootProject.T_SDK)
-        versionCode Integer.parseInt(rootProject.V_CODE)
-        versionName "$V_NAME"
+        minSdkVersion Integer.parseInt(_M_SDK)
+        targetSdkVersion Integer.parseInt(_T_SDK)
+        versionCode Integer.parseInt(_V_CODE)
+        versionName "$_V_NAME"
         multiDexEnabled true
 
 //        ndk {
@@ -41,19 +48,19 @@ android {
         //develop
         _dev {
             dimension "type"
-            minSdkVersion Math.max(Integer.parseInt(rootProject.M_SDK), 21)
+            minSdkVersion Math.max(Integer.parseInt(_M_SDK), 21)
             buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
         //preview
         pre {
             dimension "type"
-            minSdkVersion Integer.parseInt(rootProject.M_SDK)
+            minSdkVersion Integer.parseInt(_M_SDK)
             buildConfigField "boolean", "SHOW_DEBUG", "true"
         }
         //apk
         apk {
             dimension "type"
-            minSdkVersion Integer.parseInt(rootProject.M_SDK)
+            minSdkVersion Integer.parseInt(_M_SDK)
             buildConfigField "boolean", "SHOW_DEBUG", "false"
         }
     }
