@@ -2,5 +2,7 @@ apply from: './lib_base.gradle'
 
 dependencies {
     //https://github.com/tbruyelle/RxPermissions
-    api 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4'
+    api('com.tbruyelle.rxpermissions:rxpermissions:0.9.4') {
+        exclude group: 'io.reactivex', module: 'rxjava'
+    }
 }
