@@ -213,9 +213,9 @@ public class FloatWindow {
         }
 
         /**
-         * @param buildInActivity true 会立即调用 show方法
-         * */
-        public View build(boolean buildInActivity) {
+         * @param showNow true 会立即调用 show方法
+         */
+        public View build(boolean showNow) {
             if (mFloatWindowMap == null) {
                 mFloatWindowMap = new HashMap<>();
             }
@@ -243,7 +243,7 @@ public class FloatWindow {
             IFloatWindow floatWindowImpl = new IFloatWindowImpl(this);
             mFloatWindowMap.put(mTag, floatWindowImpl);
 
-            if (buildInActivity) {
+            if (showNow) {
                 if (!floatWindowImpl.isShowing()) {
                     floatWindowImpl.show();
                 }
