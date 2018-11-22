@@ -116,7 +116,11 @@ public class IFloatWindowImpl extends IFloatWindow {
 
     @Override
     void dismiss() {
-        mFloatView.dismiss();
+        try {
+            mFloatView.dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         isShow = false;
         if (mB.mViewStateListener != null) {
             mB.mViewStateListener.onDismiss();
