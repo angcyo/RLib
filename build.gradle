@@ -1,8 +1,19 @@
 apply from: './lib_base.gradle'
 
+
+def okdownload_version = '1.0.5'
+
 dependencies {
     //https://github.com/tbruyelle/RxPermissions
     api('com.tbruyelle.rxpermissions:rxpermissions:0.9.4') {
         exclude group: 'io.reactivex', module: 'rxjava'
     }
+
+    // core
+    api "com.liulishuo.okdownload:okdownload:$okdownload_version"
+// provide sqlite to store breakpoints
+    api "com.liulishuo.okdownload:sqlite:$okdownload_version"
+// provide okhttp to connect to backend
+// and then please import okhttp dependencies by yourself
+    api "com.liulishuo.okdownload:okhttp:$okdownload_version"
 }
