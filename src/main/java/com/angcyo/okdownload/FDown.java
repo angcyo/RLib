@@ -92,12 +92,13 @@ public class FDown {
 
     public static DownloadTask newTask(String url, File targetFile) {
         DownloadTask task = new DownloadTask.Builder(url, targetFile)
-                //.setFilename(filename)
+                //.setFilename(filename)  //强制文件名
                 // the minimal interval millisecond for callback progress
                 .setMinIntervalMillisCallbackProcess(1_000)//回调间隔时间
                 // do re-download even if the task has already been completed in the past.
                 .setPassIfAlreadyCompleted(true) //如果已完成, 是否跳过下载
                 //.setConnectionCount(5) //将文件分成几块下载
+                //.setAutoCallbackToUIThread(false) //在主线程接收事件
                 .build();
 
         return task;
