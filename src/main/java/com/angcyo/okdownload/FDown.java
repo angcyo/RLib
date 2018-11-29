@@ -90,7 +90,7 @@ public class FDown {
 //        return task;
 //    }
 
-    public static DownloadTask down(String url, File targetFile, DownloadListener listener) {
+    public static DownloadTask newTask(String url, File targetFile) {
         DownloadTask task = new DownloadTask.Builder(url, targetFile)
                 //.setFilename(filename)
                 // the minimal interval millisecond for callback progress
@@ -99,6 +99,26 @@ public class FDown {
                 .setPassIfAlreadyCompleted(true) //如果已完成, 是否跳过下载
                 //.setConnectionCount(5) //将文件分成几块下载
                 .build();
+
+        return task;
+    }
+
+    /**
+     * 获取一个已经存在的任务, 如果不存在则创建新的任务
+     */
+    public static DownloadTask get(String url, File targetFile) {
+        DownloadTask task = newTask(url, targetFile);
+
+        DownloadTask sameTask = OkDownload.with().downloadDispatcher().findSameTask(task);
+        if (sameTask == null) {
+            return task;
+        } else {
+            return sameTask;
+        }
+    }
+
+    public static DownloadTask down(String url, File targetFile, DownloadListener listener) {
+        DownloadTask task = newTask(url, targetFile);
 
         DownloadTask sameTask = OkDownload.with().downloadDispatcher().findSameTask(task);
         if (sameTask != null) {
@@ -259,6 +279,10 @@ public class FDown {
 //        Log.w("tag", task.getId() + "");
     }
 
+
+    /**
+     * 监听事件, 主线程回调
+     */
     public static class FDownListener implements DownloadListener {
 
         @Override
