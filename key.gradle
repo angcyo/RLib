@@ -7,6 +7,8 @@ String key_password = 'angcyo'
 String key_file = '../lib/angcyo.jks'
 String password = 'angcyo'
 
+println("脚本路径:" + new File("").getAbsolutePath())
+
 //读取key文件
 Properties props = new Properties()
 if (project.hasProperty("key_file")) {
