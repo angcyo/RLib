@@ -51,11 +51,21 @@ android {
     }
 
     dexOptions {
+        //使用增量模式构建
         //incremental false
+
+        //预编译
         preDexLibraries false
+
+        //是否支持大工程模式
         jumboMode true
-        javaMaxHeapSize "4096m"
+
+        //dex进程内存
+        javaMaxHeapSize "2g"
+
         maxProcessCount 8
+
+        //线程数
         threadCount 8
     }
 
