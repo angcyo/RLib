@@ -1,5 +1,5 @@
 //https://juejin.im/post/5c00ec39e51d4555ec0394f6
-//apply from: './lib/root.gradle'
+//apply from: './lib/aliyun.gradle'
 
 repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
