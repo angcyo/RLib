@@ -289,6 +289,13 @@ public class FDown {
         @Override
         public void taskStart(@NonNull DownloadTask task) {
             //1
+            String name = task.getFilename();
+            if (task.getFile() != null) {
+                name = task.getFile().getAbsolutePath();
+            }
+            L.d(TAG, "准备下载:\n" + task.getUrl() + "->" + name);
+            onTaskStart(task);
+
         }
 
         @Override
@@ -331,11 +338,34 @@ public class FDown {
             //8
             BreakpointInfo info = StatusUtil.getCurrentInfo(task);
             if (info != null) {
-                L.d(TAG, "下载进度:" + task.getUrl() + " "
-                        + info.getTotalOffset() + " "
-                        + info.getTotalLength() + " "
-                        + (info.getTotalOffset() * 1f / info.getTotalLength()) + " "
-                        + Util.humanReadableBytes(increaseBytes, true));
+                long totalLength = info.getTotalLength();
+                long totalOffset = info.getTotalOffset();
+                int percent = (int) (totalOffset * 100 / totalLength);
+
+                onTaskProgress(task, totalLength, totalOffset, percent, increaseBytes);
+
+                StringBuilder builder = new StringBuilder();
+                builder.append("\n下载进度:");
+                builder.append(task.getUrl());
+                builder.append("\n总大小:");
+                builder.append(totalLength);
+                builder.append(" ");
+                builder.append(FileUtils.formatFileSize(totalLength));
+
+                builder.append(" 已下载:");
+                builder.append(totalOffset);
+                builder.append(" ");
+                builder.append(FileUtils.formatFileSize(totalOffset));
+                builder.append(" ");
+                builder.append(percent);
+                builder.append("%");
+
+                builder.append(" 新增:");
+                builder.append(increaseBytes);
+                builder.append(" ");
+                builder.append(FileUtils.formatFileSize(increaseBytes));
+
+                L.d(TAG, builder.toString());
             }
         }
 
@@ -360,6 +390,26 @@ public class FDown {
                     L.e(TAG, "下载失败:" + task.getUrl());
                 }
             }
+
+            onTaskEnd(task, cause == EndCause.COMPLETED, realCause);
+        }
+
+        public void onTaskStart(@NonNull DownloadTask task) {
+
+        }
+
+        public void onTaskProgress(@NonNull DownloadTask task,
+                                   long totalLength /*总大小*/,
+                                   long totalOffset /*当前下载量*/,
+                                   int percent /*百分比*/,
+                                   long increaseBytes /*本次下载量, 速度的意思*/) {
+
+        }
+
+        public void onTaskEnd(@NonNull DownloadTask task,
+                              boolean isCompleted /*是否下载完成*/,
+                              @Nullable Exception realCause /*失败才有值*/) {
+
         }
     }
 }
