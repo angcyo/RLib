@@ -1,5 +1,7 @@
 package com.angcyo.lib;
 
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
