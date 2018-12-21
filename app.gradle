@@ -89,6 +89,8 @@ android {
     }
     lintOptions {
         abortOnError false
+        //https://www.jianshu.com/p/93678f8b3421
+        disable 'GoogleAppIndexingWarning'
     }
     /*Gradle3.0 以下的方法*/
 //    getApplicationVariants().all { variant ->
