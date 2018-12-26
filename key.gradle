@@ -57,11 +57,18 @@ if (jksFile.exists()) {
     }
 }
 
+ext.signConfig = [
+        "key_alias"   : key_alias,
+        "key_password": key_password,
+        "key_file"    : key_file,
+        "password"    : password
+]
+
 println(
-        "\nkey.alias:" + key_alias +
-                "\nkey.password:" + key_password +
-                "\nkey.file:" + key_file + " ->" + jksFile.getAbsolutePath() +
-                "\npassword:" + password + "\n"
+        "\nkey.alias:" + signConfig.key_alias +
+                "\nkey.password:" + signConfig.key_password +
+                "\nkey.file:" + signConfig.key_file + " ->" + jksFile.getAbsolutePath() +
+                "\npassword:" + signConfig.password + "\n"
 )
 
 android {

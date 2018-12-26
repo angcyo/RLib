@@ -116,7 +116,8 @@ android {
                     apk_time + "_" +
                     variant.flavorName + "_" +
                     variant.buildType.name + "_" +
-                    variant.signingConfig.name +
+                    variant.signingConfig.name + "_" +
+                    signConfig.key_alias +
                     ".apk"
         }
     }
