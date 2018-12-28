@@ -23,8 +23,10 @@ def _V_CODE = hasProperty("V_CODE") ? ext.V_CODE : '1'
 def _V_NAME = hasProperty("V_NAME") ? ext.V_NAME : '1.0'
 def application_id = hasProperty("application_id") ? ext.application_id : 'com.angcyo.app'
 
-def _use_proguard = hasProperty("use_proguard") ? (ext.use_proguard == "true") : false
-def _minify_enabled = hasProperty("minify_enabled") ? (ext.minify_enabled == "true") : false
+def _use_proguard_debug = hasProperty("use_proguard_debug") ? (ext.use_proguard_debug == "true") : false
+def _minify_enabled_debug = hasProperty("minify_enabled_debug") ? (ext.minify_enabled_debug == "true") : false
+def _use_proguard = hasProperty("use_proguard") ? (ext.use_proguard == "true") : _use_proguard_debug
+def _minify_enabled = hasProperty("minify_enabled") ? (ext.minify_enabled == "true") : _minify_enabled_debug
 
 android {
 
@@ -91,8 +93,8 @@ android {
             //applicationIdSuffix ".debug"
             zipAlignEnabled true
             shrinkResources false
-            minifyEnabled false
-            useProguard false
+            minifyEnabled _minify_enabled_debug
+            useProguard _use_proguard_debug
             signingConfig signingConfigs.angcyo
         }
     }
