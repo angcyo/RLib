@@ -79,8 +79,8 @@ android {
             //applicationIdSuffix ".release"
             zipAlignEnabled true
             shrinkResources false
-            minifyEnabled false
-            useProguard false
+            minifyEnabled true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.angcyo
         }
