@@ -54,6 +54,8 @@ android {
         targetSdkVersion T_SDK
         versionCode V_CODE
         versionName V_NAME
+
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     buildTypes {
