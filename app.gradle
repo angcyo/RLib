@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 //apply plugin: 'com.getkeepsafe.dexcount'
 //apply from: 'build_time.gradle'
 
-if (getRootProject().hasProperty("allGradle")) {
+if (rootProject.hasProperty("allGradle")) {
     apply from: allGradle.android
 } else {
     apply from: '../lib/android.gradle'
@@ -15,17 +15,17 @@ static def apkTime() {
 
 def apk_time = apkTime()
 
-def _C_SDK = hasProperty("C_SDK") ? ext.C_SDK : '28'
-def _M_SDK = hasProperty("M_SDK") ? ext.M_SDK : '21'
-def _T_SDK = hasProperty("T_SDK") ? ext.T_SDK : '28'
-def _V_CODE = hasProperty("V_CODE") ? ext.V_CODE : '1'
-def _V_NAME = hasProperty("V_NAME") ? ext.V_NAME : '1.0'
-def application_id = hasProperty("application_id") ? ext.application_id : 'com.angcyo.app'
+def _C_SDK = rootProject.hasProperty("C_SDK") ? rootProject.ext.C_SDK : '28'
+def _M_SDK = rootProject.hasProperty("M_SDK") ? rootProject.ext.M_SDK : '21'
+def _T_SDK = rootProject.hasProperty("T_SDK") ? rootProject.ext.T_SDK : '28'
+def _V_CODE = rootProject.hasProperty("V_CODE") ? rootProject.ext.V_CODE : '1'
+def _V_NAME = rootProject.hasProperty("V_NAME") ? rootProject.ext.V_NAME : '1.0'
+def application_id = rootProject.hasProperty("application_id") ? rootProject.ext.application_id : 'com.angcyo.app'
 
-def _use_proguard_debug = hasProperty("use_proguard_debug") ? (ext.use_proguard_debug == "true") : false
-def _minify_enabled_debug = hasProperty("minify_enabled_debug") ? (ext.minify_enabled_debug == "true") : false
-def _use_proguard = hasProperty("use_proguard") ? (ext.use_proguard == "true") : _use_proguard_debug
-def _minify_enabled = hasProperty("minify_enabled") ? (ext.minify_enabled == "true") : _minify_enabled_debug
+def _use_proguard_debug = rootProject.hasProperty("use_proguard_debug") ? (rootProject.ext.use_proguard_debug == "true") : false
+def _minify_enabled_debug = rootProject.hasProperty("minify_enabled_debug") ? (rootProject.ext.minify_enabled_debug == "true") : false
+def _use_proguard = rootProject.hasProperty("use_proguard") ? (rootProject.ext.use_proguard == "true") : _use_proguard_debug
+def _minify_enabled = rootProject.hasProperty("minify_enabled") ? (rootProject.ext.minify_enabled == "true") : _minify_enabled_debug
 
 android {
 
@@ -124,7 +124,13 @@ android {
         }
 
         variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-            apkData.outputFileName = rootProject.name + "-" +
+            def name = ""
+            if (project.name != "app") {
+                name = project.name
+            } else {
+                name = rootProject.name
+            }
+            apkData.outputFileName = name + "-" +
                     variant.versionName + "_" +
                     apk_time + "_" +
                     variant.flavorName + "_" +
@@ -139,7 +145,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    if (getRootProject().hasProperty("allModule")) {
+    if (rootProject.hasProperty("allModule")) {
         implementation project(allModule.UIViewLess)
     } else {
         implementation project(':UIViewLess')
