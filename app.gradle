@@ -22,6 +22,8 @@ def _V_CODE = project.hasProperty("V_CODE") ? project.ext.V_CODE : '1'
 def _V_NAME = project.hasProperty("V_NAME") ? project.ext.V_NAME : '1.0'
 def application_id = project.hasProperty("application_id") ? project.ext.application_id : 'com.angcyo.app'
 
+def _app_name = project.hasProperty("APP_NAME") ? project.ext.APP_NAME : ((project.name != "app") ? project.name : rootProject.name)
+
 def _use_proguard_debug = project.hasProperty("use_proguard_debug") ? (project.ext.use_proguard_debug == "true") : false
 def _minify_enabled_debug = project.hasProperty("minify_enabled_debug") ? (project.ext.minify_enabled_debug == "true") : false
 def _use_proguard = project.hasProperty("use_proguard") ? (project.ext.use_proguard == "true") : _use_proguard_debug
@@ -132,12 +134,7 @@ android {
         }
 
         variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-            def name = ""
-            if (project.name != "app") {
-                name = project.name
-            } else {
-                name = rootProject.name
-            }
+            def name = _app_name
             apkData.outputFileName = name + "-" +
                     variant.versionName + "_" +
                     apk_time + "_" +
